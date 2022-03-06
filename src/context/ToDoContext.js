@@ -16,6 +16,8 @@ export const ToDoProvider = ({children}) => {
     const [toDos, setToDos] = useState([])
     const [currentItemId, setCurrentItemId] = useState(0)
 
+    const baseURL = 'https://todomanagerback123.herokuapp.com/todo'
+
     useEffect(() => {
         setIsLoading(false)
         fetchToDo()
@@ -24,7 +26,7 @@ export const ToDoProvider = ({children}) => {
 
     // Fetch ToDo
     const fetchToDo = () => {
-        axios.get('http://localhost:8080/todo')
+        axios.get(`${baseURL}`)
         .then(res => {
             console.log(`fetchToDo is executed.`)
             const newToDos = res.data
@@ -34,7 +36,7 @@ export const ToDoProvider = ({children}) => {
 
     const addToDo = ([subject, text]) => {
         const todo = {id: null, subject: subject, text: text, done: false}
-        axios.post('http://localhost:8080/todo', todo)
+        axios.post(`${baseURL}`, todo)
         .then(res => {
             console.log(`addToDo is executed. Response header : ${res}`)
             fetchToDo()
@@ -44,7 +46,7 @@ export const ToDoProvider = ({children}) => {
     const updateToDo = (todo) => {
         console.log(`In the UpdateToDo 'todo' : ${todo}`)
         console.log(todo)
-        axios.put('http://localhost:8080/todo', todo)
+        axios.put(`${baseURL}`, todo)
         .then(res => {
             console.log(`updateToDo is executed. Response header : ${res}`)
             fetchToDo()
@@ -55,7 +57,7 @@ export const ToDoProvider = ({children}) => {
         toDos.map((item) => {
             if(item.id === checkedKey){
                 item.done = !item.done
-                axios.put('http://localhost:8080/todo', item)
+                axios.put(`${baseURL}`, item)
                 .then(res => {
                     console.log(`checkToDo is executed.`)
                     fetchToDo()
@@ -65,7 +67,7 @@ export const ToDoProvider = ({children}) => {
     };
 
     const deleteToDo = (item_id) => {
-        axios.delete(`http://localhost:8080/todo/${item_id}`)
+        axios.delete(`${baseURL}/${item_id}`)
         .then(res => {
             console.log(`deleteToDo is executed. Response header : ${res}`)
             fetchToDo()
