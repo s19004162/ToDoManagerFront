@@ -69,14 +69,14 @@ function Input() {
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
                             <input 
-                                className='input is-link'
+                                className='input is-primary is-rounded'
                                 onChange={handleSubjectChange}  
                                 type='text' 
                                 placeholder='Write a ToDo subject'
                                 value={subject}
                             />
                             <input
-                                className='input is-link'
+                                className='input is-primary is-rounded'
                                 onChange={handleTextChange} 
                                 type='text' 
                                 placeholder='Write a ToDo content'
